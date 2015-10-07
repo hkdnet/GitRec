@@ -1,4 +1,3 @@
-
 module GitRec
   module Models
     # dto which represents a mail
