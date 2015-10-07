@@ -3,6 +3,7 @@ require 'json'
 
 module GitRec
   module Connections
+    # connection to GitHub
     class GitHubConnection
       def user(name)
         fetch("/users/#{name}")
