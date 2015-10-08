@@ -9,10 +9,10 @@ module GitRec
         fetch("/users/#{name}")
       end
 
-      def commits(owner, repo, author: nil, date: nil)
+      def commits(owner, repo, author: nil, since_date: nil, until_date: nil)
         url = "/repos/#{owner}/#{repo}/commits?" \
               "#{author_query(author)}" \
-              "#{date_query(date)}"
+              "#{date_query(since_date, until_date)}"
         fetch(url)
       end
 
@@ -33,11 +33,17 @@ module GitRec
         author.nil? ? '' : "author=#{author}&"
       end
 
-      def date_query(date)
-        date = Date.today unless date
-        since_date = date.to_datetime.iso8601
-        until_date = (date + 1).to_datetime.iso8601
-        since.nil? ? '' : "since=#{since_date}&until=#{until_date}"
+      def date_query(since_date, until_date)
+        query = ''
+        unless since_date.nil?
+          since_str = since_date.to_datetime.iso8601
+          query += "&since=#{since_str}"
+        end
+        unless until_date.nil?
+          until_str = until_date.to_datetime.iso8601
+          query += "&until=#{until_str}"
+        end
+        query
       end
     end
   end
