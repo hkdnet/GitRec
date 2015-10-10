@@ -9,7 +9,7 @@ Dotenv.load
 
 $LOAD_PATH.unshift(File.expand_path(__FILE__ + '/../../src'))
 
-libs = %w(connections models services)
+libs = %w(connections models services gateways)
 libs.each do |ns|
   Dir[File.expand_path("../../src/#{ns}", __FILE__) << '/*.rb'].each do |file|
     require file

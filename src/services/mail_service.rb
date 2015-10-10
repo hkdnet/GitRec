@@ -5,26 +5,27 @@ module GitRec
   module Services
     # send mail
     class MailService
-      def exec
-        GitRec::Connections::MailSender.new.send(mail)
+      def exec(text)
+        GitRec::Connections::MailSender.new.send(mail(text))
       end
 
-      def mail
+      def mail(text)
         GitRec::Models::Mail.new.tap do |e|
-          e.message = message
+          e.message = message(text)
           e.from =  'from@mailtrap.io'
           e.to = 'to@mailtrap.io'
         end
       end
 
-      def message
-        <<-END.split("\n").map!(&:strip).join("\n")
+      def message(text)
+        m = <<-END
 From: Private Person <from@mailtrap.io>
 To: A Test User <to@mailtrap.io>
 Subject: Hello world!
 
-This is a test e-mail message.
+
 END
+        (m + text).split("\n").map!(&:strip).join("\n")
       end
     end
   end
