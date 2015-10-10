@@ -1,4 +1,5 @@
 require 'nkf'
+require 'redcarpet'
 
 module GitRec
   module Models
@@ -8,26 +9,38 @@ module GitRec
 
       # rubocop:disable MethodLength
       def raw_text
-        <<-END
+        md = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+        <<-EOS
 From: GitRecReport <#{@from}>
 To: いつもがんばってる君へ <#{@to}>
 Subject: #{NKF.nkf('-jWM', '[GitRec]がんばりレポート')}
 Date: #{Time.now.strftime('%a, %d %b %Y %X %z')}
 Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-2022-JP
+Content-Type: text/html; charset=ISO-2022-JP
 Content-Transfer-Encoding: 7bit
 
-こんにちは、元気してる？今週のレポートだよ。
+<html>
+<body>
+#{md.render(markdown_message)}
+</body>
+</html>
+EOS
+      end
+      # rubocop:enable MethodLength
+
+      def markdown_message
+        <<-EOS
+## 今週のレポートだよ。
 
 ----
+
 #{@message}
+
 ----
 
 以上だよ。来週もまたがんばろうね！
-
-END
+EOS
       end
-      # rubocop:enable MethodLength
     end
   end
 end

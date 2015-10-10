@@ -1,7 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    docile (1.1.5)
     dotenv (2.0.2)
+    json (1.8.3)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
@@ -10,6 +12,12 @@ GEM
       minitest
       power_assert
     power_assert (0.2.4)
+    redcarpet (3.3.2)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
 
 PLATFORMS
   ruby
@@ -19,6 +27,8 @@ DEPENDENCIES
   mail
   minitest
   minitest-power_assert
+  redcarpet
+  simplecov
 
 BUNDLED WITH
    1.10.3
