@@ -11,13 +11,16 @@ module GitRec
   class Main
     def main
       commits = fetch_commits
-      commit_messages = commits.map { |e| e.commit.message }
-      text = commit_messages.join("\n")
-      GitRec::Services::MailService.new.exec(text)
+      send_mail(commits)
     end
 
     def fetch_commits
       service = GitRec::Services::CommitsService.new('hkdnet', 'komonjo')
+      service.exec
+    end
+
+    def send_mail(commits)
+      service = GitRec::Services::MailService.new(commits)
       service.exec
     end
   end

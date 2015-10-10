@@ -7,6 +7,6 @@ describe GitRec::Gateways::CommitsGateway do
     repo.owner = 'hkdnet'
     repo.name = 'komonjo'
     gw = GitRec::Gateways::CommitsGateway.new(repo)
-    ret = gw.commits
+    gw.commits
   end
 end
