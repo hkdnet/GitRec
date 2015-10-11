@@ -22,7 +22,9 @@ module GitRec
     end
 
     get '/mail/:owner/:repo' do
-      commits = GitRec::Services::CommitsService.new('hkdnet', 'komonjo').exec
+      owner = params[:owner]
+      repo = params[:repo]
+      commits = GitRec::Services::CommitsService.new(owner, repo).exec
       GitRec::Services::MailService.new(commits).exec
       'GitRec report was sent successfully :)'
     end
