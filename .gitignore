@@ -1,6 +1,7 @@
 .env
 .git/
 *.gem
+node_modules/
 *.rbc
 /.config
 /coverage/
@@ -10,11 +11,6 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
-
-## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
 
 ## Documentation cache and generated files:
 /.yardoc/
@@ -32,3 +28,6 @@ build/
 
 # OSX
 **/.DS_store
+
+# built js
+public/js/main.js
