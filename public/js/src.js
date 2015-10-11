@@ -30,7 +30,7 @@ class Screen extends React.Component {
     }, 'text').done(() =>{
       toastr.clear();
       toastr.info('GitRec report was successfully sent', 'GitRec report');
-    }).catch(() => {
+    }).fail(() => {
       console.error(arguments);
       toastr.clear();
       toastr.error('Sorry, something went wrong...', 'GitRec report');
