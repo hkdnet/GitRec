@@ -17,7 +17,7 @@ module GitRec
 
       def map_to_model(e)
         GitRec::Models::GitHubRepositoryCommit.new.tap do |r|
-          r.url = e['url']
+          r.html_url = e['html_url']
           r.commit = GitRec::Models::GitHubCommit.new.tap do |commit|
             commit.message = e['commit']['message']
           end

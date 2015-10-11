@@ -2,7 +2,7 @@ module GitRec
   module Models
     # GitHub API's return value
     class GitHubRepositoryCommit
-      attr_accessor :url, :commit
+      attr_accessor :html_url, :commit
     end
   end
 end
