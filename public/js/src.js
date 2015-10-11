@@ -19,7 +19,6 @@ class Screen extends React.Component {
       return false;
     }
     let url = '/mail/' + this.state.owner + '/' + this.state.repo;
-    console.log(url);
     req.get(url)
        .send()
        .then(() =>{
@@ -56,21 +55,3 @@ ReactDom.render(
   <Screen />,
   document.getElementById('content')
 );
-
-/*
-var sendMailButton = document.getElementById('send-mail');
-var valGetter = function(input) {
-  return input && input.value;
-};
-sendMailButton.addEventListener('click', function(e) {
-  var owner = valGetter(document.getElementById('owner')),
-      repo = valGetter(document.getElementById('repo'));
-
-  if(!owner || !repo) {
-    alert('please fill your information.')
-    return false;
-  }
-  e.target.innerText = 'sending...'
-  location.href = '/mail/' + owner + '/' + repo;
-});
-*/
