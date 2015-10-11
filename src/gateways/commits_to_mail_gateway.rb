@@ -19,8 +19,8 @@ module GitRec
       end
 
       def map_to_mail(e)
-        "* #{e.commit.message.split("\n").select{ |l| !l.empty? }.map do |line|
-          "[#{line}](#{e.url})"
+        "* #{e.commit.message.split("\n").select { |l| !l.empty? }.map do |line|
+          "[#{line}](#{e.html_url})"
         end.join("\n")}\n"
       end
     end
