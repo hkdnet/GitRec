@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GitRec</title>
+  </head>
+  <body>
+    <h1>GitRec</h1>
+    <input id="owner" /> / <input id="repo" /><br />
+    <button id="send-mail">send GitRec report</button>
+    <script>
+    var sendMailButton = document.getElementById('send-mail');
+    var valGetter = function(input) {
+      return input && input.value;
+    };
+    sendMailButton.addEventListener('click', function(e) {
+      var owner = valGetter(document.getElementById('owner')),
+          repo = valGetter(document.getElementById('repo'));
+
+      if(!owner || !repo) {
+        alert('please fill your information.')
+        return false;
+      }
+      e.target.innerText = 'sending...'
+      location.href = '/mail/' + owner + '/' + repo;
+    });
+    </script>
+  </body>
+</html>
