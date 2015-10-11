@@ -8,6 +8,8 @@
     <h1>GitRec</h1>
     <input id="owner" /> / <input id="repo" /><br />
     <button id="send-mail">send GitRec report</button>
+    <div id="content">
+    </div>
     <script>
     var sendMailButton = document.getElementById('send-mail');
     var valGetter = function(input) {
@@ -25,5 +27,6 @@
       location.href = '/mail/' + owner + '/' + repo;
     });
     </script>
+    <script src="js/main.js" charset="utf-8"></script>
   </body>
 </html>

@@ -1,0 +1,30 @@
+{
+  "name": "gitrec",
+  "version": "0.0.1",
+  "description": "承認欲求をみたすやつです。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkdnet/GitRec.git"
+  },
+  "author": "hkdnet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hkdnet/GitRec/issues"
+  },
+  "homepage": "https://github.com/hkdnet/GitRec#readme",
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-bootstrap": "^0.27.1",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-runtime": "^5.8.25",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0"
+  }
+}

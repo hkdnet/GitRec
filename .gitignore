@@ -1,6 +1,7 @@
 .env
 .git/
 *.gem
+node_modules/
 *.rbc
 /.config
 /coverage/
