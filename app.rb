@@ -24,6 +24,8 @@ module GitRec
     get '/mail/:owner/:repo' do
       owner = params[:owner]
       repo = params[:repo]
+      params[:since_date]
+      params[:until_date]
       commits = GitRec::Services::CommitsService.new(owner, repo).exec
       GitRec::Services::MailService.new(commits).exec
       'GitRec report was sent successfully :)'

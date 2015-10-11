@@ -4,8 +4,8 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Button } from 'react-bootstrap';
 import toastr from 'toastr';
-import req from 'superagent-bluebird-promise';
-import dateFormat from 'dateformat'
+import dateFormat from 'dateformat';
+import $ from 'jquery'
 
 class Screen extends React.Component {
   constructor(props) {
@@ -18,19 +18,23 @@ class Screen extends React.Component {
     };
   }
   sendButtonClickHandler() {
-    console.log(this.state.owner, this.state.repo)
     if(!this.state.owner || !this.state.repo) {
       toastr.error('please fill your repository information', 'ERROR');
       return false;
     }
     let url = '/mail/' + this.state.owner + '/' + this.state.repo;
     toastr.info('sending...', 'INFO');
-    req.get(url)
-       .send()
-       .then(() =>{
-         toastr.clear();
-         toastr.info('GitRec report was successfully sent', 'GitRec report');
-       });
+    $.get(url, {
+      since_date: this.state.sinceDate,
+      until_date: this.state.untilDate
+    }, 'text').done(() =>{
+      toastr.clear();
+      toastr.info('GitRec report was successfully sent', 'GitRec report');
+    }).catch(() => {
+      console.error(arguments);
+      toastr.clear();
+      toastr.error('Sorry, something went wrong...', 'GitRec report');
+    });
   }
   ownerChangeHandler(e) {
     this.setState({ owner: e.target.value });

@@ -17,20 +17,17 @@
   },
   "homepage": "https://github.com/hkdnet/GitRec#readme",
   "dependencies": {
-    "bluebird": "^2.10.2",
     "dateformat": "^1.0.11",
+    "jquery": "^2.1.4",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
     "react-dom": "^0.14.0",
-    "superagent": "^1.4.0",
-    "superagent-bluebird-promise": "^2.1.0",
     "toastr": "^2.1.2"
   },
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-runtime": "^5.8.25",
     "babelify": "^6.3.0",
-    "browserify": "^11.2.0",
-    "jquery": "^2.1.4"
+    "browserify": "^11.2.0"
   }
 }
