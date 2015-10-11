@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GitRec</title>
+  </head>
+  <body>
+    <h1>GitRec</h1>
+    <button id="send-mail">send GitRec report</button>
+    <script>
+    var sendMailButton = document.querySelector('#send-mail');
+    sendMailButton.addEventListener('click', function(e) {
+      e.target.innerText = 'sending...'
+      location.href = '/mail/hkdnet/komonjo'
+    });
+    </script>
+  </body>
+</html>
