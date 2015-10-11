@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Button } from 'react-bootstrap';
-import toastr from 'toastr'
+import toastr from 'toastr';
+import req from 'superagent-bluebird-promise';
 
 class Screen extends React.Component {
   constructor(props) {
@@ -14,8 +15,16 @@ class Screen extends React.Component {
   sendButtonClickHandler() {
     console.log(this.state.owner, this.state.repo)
     if(!this.state.owner || !this.state.repo) {
-      toastr.error('please fill your repository information', 'ERROR')
+      toastr.error('please fill your repository information', 'ERROR');
+      return false;
     }
+    let url = '/mail/' + this.state.owner + '/' + this.state.repo;
+    console.log(url);
+    req.get(url)
+       .send()
+       .then(() =>{
+         toastr.info('GitRec report was successfully sent', 'GitRec report');
+       });
   }
   ownerChangeHandler(e) {
     this.setState({ owner: e.target.value });
