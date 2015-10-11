@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Button } from 'react-bootstrap';
+import toastr from 'toastr'
 
 class Screen extends React.Component {
   constructor(props) {
@@ -12,6 +13,9 @@ class Screen extends React.Component {
   }
   sendButtonClickHandler() {
     console.log(this.state.owner, this.state.repo)
+    if(!this.state.owner || !this.state.repo) {
+      toastr.error('please fill your repository information', 'ERROR')
+    }
   }
   ownerChangeHandler(e) {
     this.setState({ owner: e.target.value });
@@ -25,10 +29,12 @@ class Screen extends React.Component {
         <h1 className="title">GitRec</h1>
         <div>
           <input id="owner" defaultValue={this.state.owner}
-            onChange={this.ownerChangeHandler.bind(this)} />
+            onChange={this.ownerChangeHandler.bind(this)}
+            placeholder="owner" />
           <span>/</span>
           <input id="repo" defaultValue={this.state.repo}
-            onChange={this.repoChangeHandler.bind(this)} />
+            onChange={this.repoChangeHandler.bind(this)}
+            placeholder="repo" />
         </div>
         <Button id="send-mail" onClick={this.sendButtonClickHandler.bind(this)}>
           send GitRec report
