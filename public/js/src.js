@@ -2,19 +2,81 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Row, Col, Label } from 'react-bootstrap';
 import toastr from 'toastr';
 import dateFormat from 'dateformat';
 import $ from 'jquery'
 
+class GitHubRepository extends React.Component {
+  render() {
+    return(
+      <Grid>
+        <Row>
+          <Col xs={3}>
+            <Label>
+              GitHubレポジトリ
+            </Label>
+          </Col>
+          <Col xs={9}>
+            <input id="owner" defaultValue={this.props.owner}
+              onChange={this.props.ownerChangeHandler}
+              placeholder="owner" />
+            <span>/</span>
+            <input id="repo" defaultValue={this.props.repo}
+              onChange={this.props.repoChangeHandler}
+              placeholder="repo" />
+          </Col>
+        </Row>
+      </Grid>
+    )
+  }
+}
+class SearchFilter extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Grid>
+        <Row>
+          <Col xs={3}>
+            <Label>
+              フィルタ
+            </Label>
+          </Col>
+          <Col xs={9}>
+            <input id="since_date" type="date"
+              defaultValue={this.props.sinceDate}
+              onChange={this.props.sinceDateChangeHandler} />
+            <span>〜</span>
+            <input id="until_date" type="date"
+              defaultValue={this.props.untilDate}
+              onChange={this.props.untilDateChangeHandler} />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={9} xsOffset={3}>
+            <input id="commiter"
+              placeholder="commiter(optional)"
+              defaultValue={this.props.commiter}
+              onChange={this.props.commiterChangeHandler.bind(this)} />
+          </Col>
+        </Row>
+      </Grid>
+    )
+  }
+}
 class Screen extends React.Component {
   constructor(props) {
     super(props);
+    let today = new Date();
+    let oneWeekAgo = (new Date()).setDate(today.getDate() - 7);
     this.state = {
       owner: '',
       repo: '',
-      sinceDate: dateFormat(new Date(), 'yyyy-mm-dd'),
-      untilDate: dateFormat(new Date(), 'yyyy-mm-dd')
+      sinceDate: dateFormat(oneWeekAgo, 'yyyy-mm-dd'),
+      untilDate: dateFormat(today, 'yyyy-mm-dd'),
+      commiter: ''
     };
   }
   sendButtonClickHandler() {
@@ -29,7 +91,7 @@ class Screen extends React.Component {
       until_date: this.state.untilDate
     }, 'text').done(() =>{
       toastr.clear();
-      toastr.info('GitRec report was successfully sent', 'GitRec report');
+      toastr.success('GitRec report was successfully sent', 'GitRec report');
     }).fail(() => {
       console.error(arguments);
       toastr.clear();
@@ -48,32 +110,60 @@ class Screen extends React.Component {
   untilDateChangeHandler(e) {
     this.setState({ untilDate: e.target.value })
   }
+  commiterChangeHandler(e) {
+    this.setState({ commiter: e.target.value })
+  }
   render() {
     return (
-      <div className="screen">
-        <h1 className="title">GitRec</h1>
-        <div>
-          <input id="owner" defaultValue={this.state.owner}
-            onChange={this.ownerChangeHandler.bind(this)}
-            placeholder="owner" />
-          <span>/</span>
-          <input id="repo" defaultValue={this.state.repo}
-            onChange={this.repoChangeHandler.bind(this)}
-            placeholder="repo" />
-        </div>
-        <div>
-          <input id="since_date" type="date"
-            defaultValue={this.state.sinceDate}
-            onChange={this.sinceDateChangeHandler.bind(this)} />
-          <span>〜</span>
-          <input id="until_date" type="date"
-            defaultValue={this.state.untilDate}
-            onChange={this.untilDateChangeHandler.bind(this)} />
-        </div>
-        <Button id="send-mail" onClick={this.sendButtonClickHandler.bind(this)}>
-          send GitRec report
-        </Button>
-      </div>
+      <Grid className="screen">
+        <Row>
+          <Col xs={12}>
+            <h1 className="title">GitRec</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <GitHubRepository
+              owner={this.state.owner}
+              ownerChangeHandler={this.ownerChangeHandler.bind(this)}
+              repo={this.state.repo}
+              repoChangeHandler={this.repoChangeHandler.bind(this)}
+              />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <SearchFilter
+              sinceDate={this.state.sinceDate}
+              sinceDateChangeHandler={this.sinceDateChangeHandler.bind(this)}
+              untilDate={this.state.untilDate}
+              untilDateChangeHandler={this.untilDateChangeHandler.bind(this)}
+              commiter={this.state.commiter}
+              commiterChangeHandler={this.commiterChangeHandler.bind(this)}
+              />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Button id="send-mail" onClick={this.sendButtonClickHandler.bind(this)}>
+              send GitRec report
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <h2>How to Use</h2>
+            <section>
+              <ul>
+                <li>GitHubレポジトリを指定します。 例: hkdnet/GitRec</li>
+                <li>日付フィルタを指定します。デフォルトは直近1週間です。</li>
+                <li>コミッタフィルタを指定します。ない場合はレポジトリの全ログを取得します。</li>
+                <li>送信ボタンをクリックします。</li>
+              </ul>
+            </section>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
