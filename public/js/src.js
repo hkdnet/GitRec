@@ -6,31 +6,8 @@ import { Button, Grid, Row, Col, Label } from 'react-bootstrap';
 import toastr from 'toastr';
 import dateFormat from 'dateformat';
 import $ from 'jquery'
+import GitHubRepository from './public/js/gitHubRepository.js'
 
-class GitHubRepository extends React.Component {
-  render() {
-    return(
-      <Grid>
-        <Row>
-          <Col xs={3}>
-            <Label>
-              GitHubレポジトリ
-            </Label>
-          </Col>
-          <Col xs={9}>
-            <input id="owner" defaultValue={this.props.owner}
-              onChange={this.props.ownerChangeHandler}
-              placeholder="owner" />
-            <span>/</span>
-            <input id="repo" defaultValue={this.props.repo}
-              onChange={this.props.repoChangeHandler}
-              placeholder="repo" />
-          </Col>
-        </Row>
-      </Grid>
-    )
-  }
-}
 class SearchFilter extends React.Component {
   constructor(props) {
     super(props);
