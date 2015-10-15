@@ -31,7 +31,7 @@ module GitRec
       end
 
       def author_query(author)
-        author.nil? ? '' : "author=#{author}&"
+        (author.nil? || author == '') ? '' : "author=#{author}&"
       end
 
       def date_query(since_date, until_date)
