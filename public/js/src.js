@@ -79,17 +79,22 @@ class Screen extends React.Component {
       commiter: ''
     };
   }
+  mapToParam(state) {
+    return {
+      owner: state.owner,
+      repo: state.repo,
+      since_date: state.sinceDate,
+      until_date: state.untilDate,
+      author: state.commiter
+    }
+  }
   sendButtonClickHandler() {
     if(!this.state.owner || !this.state.repo) {
       toastr.error('please fill your repository information', 'ERROR');
       return false;
     }
-    let url = '/mail/' + this.state.owner + '/' + this.state.repo;
     toastr.info('sending...', 'INFO');
-    $.get(url, {
-      since_date: this.state.sinceDate,
-      until_date: this.state.untilDate
-    }, 'text').done(() =>{
+    $.get('/mail', this.mapToParam(this.state), 'text').done(() =>{
       toastr.clear();
       toastr.success('GitRec report was successfully sent', 'GitRec report');
     }).fail(() => {
