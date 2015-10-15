@@ -13,6 +13,7 @@ module GitRec
         url = "/repos/#{owner}/#{repo}/commits?" \
               "#{author_query(author)}" \
               "#{date_query(since_date, until_date)}"
+        puts url
         fetch(url)
       end
 
@@ -30,7 +31,7 @@ module GitRec
       end
 
       def author_query(author)
-        author.nil? ? '' : "author=#{author}&"
+        (author.nil? || author == '') ? '' : "author=#{author}&"
       end
 
       def date_query(since_date, until_date)

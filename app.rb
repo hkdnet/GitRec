@@ -21,14 +21,16 @@ module GitRec
       html :index
     end
 
-    get '/mail/:owner/:repo' do
+    get '/mail' do
       owner = params[:owner]
       repo = params[:repo]
       since_date = time_for(params[:since_date])
       until_date = time_for(params[:until_date])
+      author = params[:author]
       service = GitRec::Services::CommitsService.new(owner, repo)
       commits = service.exec(filter_since: since_date,
-                             filter_until: until_date)
+                             filter_until: until_date,
+                             filter_author: author)
       GitRec::Services::MailService.new(commits).exec
       'GitRec report was sent successfully :)'
     end
