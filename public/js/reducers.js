@@ -1,3 +1,5 @@
+'use strict'
+
 import { combineReducers } from 'redux';
 import { INPUT_OWNER, inputOwner } from './actions.js';
 

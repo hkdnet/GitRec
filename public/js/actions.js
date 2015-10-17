@@ -1,3 +1,5 @@
+'use strict'
+
 /*
  * action types
  */
