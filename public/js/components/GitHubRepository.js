@@ -18,8 +18,7 @@ export default class GitHubRepository extends React.Component {
             <SyncInput name="owner" value={this.props.owner}
               placeholder="owner" />
             <span>/</span>
-            <input id="repo" defaultValue={this.props.repo}
-              onChange={this.props.repoChangeHandler}
+            <SyncInput name="repo" defaultValue={this.props.repo}
               placeholder="repo" />
           </Col>
         </Row>

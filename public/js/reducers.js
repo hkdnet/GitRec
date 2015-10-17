@@ -1,12 +1,7 @@
 'use strict'
 
 import { combineReducers } from 'redux';
-import { INPUT_OWNER,         inputOwner,
-         INPUT_REPO,          inputRepo,
-         INPUT_SINCE_DATE,    inputSinceDate,
-         INPUT_UNTIL_DATE,    inputUntilDate,
-         INPUT_COMMITER,      inputCommiter,
-         SEND_BUTTON_CLICKED, sendButtonClicked } from './actions.js';
+import { SEND_BUTTON_CLICKED, sendButtonClicked } from './actions.js';
 import { SYNC_INPUT_CHANGE } from './components/SyncInput.js'
 
 
@@ -43,26 +38,6 @@ function inputs(state = initialInputs, action) {
       let obj = {};
       obj[action.name] = action.value;
       return Object.assign({}, state, obj);
-    case INPUT_REPO:
-      return Object.assign({}, state, {
-        repo: action.text
-      })
-      break;
-    case INPUT_SINCE_DATE:
-      return Object.assign({}, state, {
-        sinceDate: action.text
-      })
-      break;
-    case INPUT_UNTIL_DATE:
-      return Object.assign({}, state, {
-        untilDate: action.text
-      })
-      break;
-    case INPUT_COMMITER:
-      return Object.assign({}, state, {
-        commiter: action.text
-      })
-      break;
     case SEND_BUTTON_CLICKED:
       if(!state.owner || !state.repo) {
         toastr.error('please fill your repository information', 'ERROR');
