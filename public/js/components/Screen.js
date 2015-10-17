@@ -1,19 +1,16 @@
 'use strict'
 
+// library
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row, Col, Label } from 'react-bootstrap';
 
+// components
 import GitHubRepository from './GitHubRepository.js'
 import SearchFilter from './SearchFilter.js'
 import Help from './Help.js'
 
-import { inputOwner,
-         inputRepo,
-         inputSinceDate,
-         inputUntilDate,
-         inputCommiter,
-         sendButtonClicked } from '../actions.js'
+import { sendButtonClicked } from '../actions.js'
 
 class Screen extends React.Component {
   render() {
@@ -27,27 +24,13 @@ class Screen extends React.Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <GitHubRepository
-              owner={owner} repo={repo}
-              ownerChangeHandler={(e) => dispatch(inputOwner(e.target.value)) }
-              repoChangeHandler={(e) => dispatch(inputRepo(e.target.value))}
-              />
+            <GitHubRepository owner={owner} repo={repo} />
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <SearchFilter
-              sinceDate={sinceDate} untilDate={untilDate} commiter={commiter}
-              sinceDateChangeHandler={(e) =>
-                dispatch(inputSinceDate(e.target.value))
-              }
-              untilDateChangeHandler={(e) =>
-                dispatch(inputUntilDate(e.target.value))
-              }
-              commiterChangeHandler={(e) =>
-                dispatch(inputCommiter(e.target.value))
-              }
-              />
+            <SearchFilter sinceDate={sinceDate} untilDate={untilDate}
+              commiter={commiter} />
           </Col>
         </Row>
         <Row>
