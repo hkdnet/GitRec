@@ -18,6 +18,15 @@ function inputs(state = initialInputs, action) {
   }
 }
 
+function send(state = initialInputs, action) {
+  switch(action.type) {
+    case SEND_BUTTON_CLICKED:
+      return state
+    default;
+      return state
+  }
+}
+
 const gitRecApp = combineReducers({
   inputs
 })
