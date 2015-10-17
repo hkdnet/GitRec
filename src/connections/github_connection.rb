@@ -10,10 +10,10 @@ module GitRec
       end
 
       def commits(owner, repo, author: nil, since_date: nil, until_date: nil)
+        [owner, repo, author].reject(&:nil?).each(&:strip!)
         url = "/repos/#{owner}/#{repo}/commits?" \
               "#{author_query(author)}" \
               "#{date_query(since_date, until_date)}"
-        puts url
         fetch(url)
       end
 
