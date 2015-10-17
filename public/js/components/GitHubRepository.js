@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Label, Grid, Row, Col } from 'react-bootstrap';
+import SyncInput from './SyncInput.js'
 
 export default class GitHubRepository extends React.Component {
   render() {
@@ -14,12 +15,10 @@ export default class GitHubRepository extends React.Component {
             </Label>
           </Col>
           <Col xs={9}>
-            <input id="owner" defaultValue={this.props.owner}
-              onChange={this.props.ownerChangeHandler}
+            <SyncInput name="owner" value={this.props.owner}
               placeholder="owner" />
             <span>/</span>
-            <input id="repo" defaultValue={this.props.repo}
-              onChange={this.props.repoChangeHandler}
+            <SyncInput name="repo" defaultValue={this.props.repo}
               placeholder="repo" />
           </Col>
         </Row>

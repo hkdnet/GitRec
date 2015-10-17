@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Grid, Row, Col, Label } from 'react-bootstrap';
+import SyncInput from './SyncInput.js'
 
 export default class SearchFilter extends React.Component {
   constructor(props) {
@@ -17,21 +18,18 @@ export default class SearchFilter extends React.Component {
             </Label>
           </Col>
           <Col xs={9}>
-            <input id="since_date" type="date"
-              defaultValue={this.props.sinceDate}
-              onChange={this.props.sinceDateChangeHandler} />
+            <SyncInput name="since_date" type="date"
+              defaultValue={this.props.sinceDate} />
             <span>〜</span>
-            <input id="until_date" type="date"
-              defaultValue={this.props.untilDate}
-              onChange={this.props.untilDateChangeHandler} />
+            <SyncInput name="until_date" type="date"
+              defaultValue={this.props.untilDate} />
           </Col>
         </Row>
         <Row>
           <Col xs={9} xsOffset={3}>
-            <input id="commiter"
+            <SyncInput name="commiter"
               placeholder="commiter(optional)"
-              defaultValue={this.props.commiter}
-              onChange={this.props.commiterChangeHandler.bind(this)} />
+              defaultValue={this.props.commiter} />
           </Col>
         </Row>
       </Grid>
