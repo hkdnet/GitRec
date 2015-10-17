@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Grid, Row, Col, Label } from 'react-bootstrap';
 import toastr from 'toastr';
 import dateFormat from 'dateformat';
@@ -10,7 +11,9 @@ import GitHubRepository from './GitHubRepository.js'
 import SearchFilter from './SearchFilter.js'
 import Help from './Help.js'
 
-export default class Screen extends React.Component {
+import { inputOwner } from '../actions.js'
+
+class Screen extends React.Component {
   constructor(props) {
     super(props);
     let today = new Date();
@@ -48,7 +51,7 @@ export default class Screen extends React.Component {
     });
   }
   ownerChangeHandler(e) {
-    this.setState({ owner: e.target.value });
+    dispatch(inputOwner(e.target.value));
   }
   repoChangeHandler(e) {
     this.setState({ repo: e.target.value });
@@ -63,6 +66,8 @@ export default class Screen extends React.Component {
     this.setState({ commiter: e.target.value })
   }
   render() {
+    console.log(this.props)
+    const { dispatch, owner } = this.props;
     return (
       <Grid className="screen">
         <Row>
@@ -73,8 +78,8 @@ export default class Screen extends React.Component {
         <Row>
           <Col xs={12}>
             <GitHubRepository
-              owner={this.state.owner}
-              ownerChangeHandler={this.ownerChangeHandler.bind(this)}
+              owner={owner}
+              ownerChangeHandler={(e) => dispatch(inputOwner(e.target.value)) }
               repo={this.state.repo}
               repoChangeHandler={this.repoChangeHandler.bind(this)}
               />
@@ -108,3 +113,5 @@ export default class Screen extends React.Component {
     );
   }
 }
+
+export default connect((arg) => arg)(Screen);
