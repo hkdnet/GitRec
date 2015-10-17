@@ -3,71 +3,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row, Col, Label } from 'react-bootstrap';
-import toastr from 'toastr';
-import dateFormat from 'dateformat';
-import $ from 'jquery'
 
 import GitHubRepository from './GitHubRepository.js'
 import SearchFilter from './SearchFilter.js'
 import Help from './Help.js'
 
-import { inputOwner } from '../actions.js'
+import { inputOwner,
+         inputRepo,
+         inputSinceDate,
+         inputUntilDate,
+         inputCommiter,
+         sendButtonClicked } from '../actions.js'
 
 class Screen extends React.Component {
-  constructor(props) {
-    super(props);
-    let today = new Date();
-    let oneWeekAgo = (new Date()).setDate(today.getDate() - 7);
-    this.state = {
-      owner: '',
-      repo: '',
-      sinceDate: dateFormat(oneWeekAgo, 'yyyy-mm-dd'),
-      untilDate: dateFormat(today, 'yyyy-mm-dd'),
-      commiter: ''
-    };
-  }
-  mapToParam(state) {
-    return {
-      owner: state.owner,
-      repo: state.repo,
-      since_date: state.sinceDate,
-      until_date: state.untilDate,
-      author: state.commiter
-    }
-  }
-  sendButtonClickHandler() {
-    if(!this.state.owner || !this.state.repo) {
-      toastr.error('please fill your repository information', 'ERROR');
-      return false;
-    }
-    toastr.info('sending...', 'INFO');
-    $.get('/mail', this.mapToParam(this.state), 'text').done(() =>{
-      toastr.clear();
-      toastr.success('GitRec report was successfully sent', 'GitRec report');
-    }).fail(() => {
-      console.error(arguments);
-      toastr.clear();
-      toastr.error('Sorry, something went wrong...', 'GitRec report');
-    });
-  }
-  ownerChangeHandler(e) {
-    dispatch(inputOwner(e.target.value));
-  }
-  repoChangeHandler(e) {
-    this.setState({ repo: e.target.value });
-  }
-  sinceDateChangeHandler(e) {
-    this.setState({ sinceDate: e.target.value })
-  }
-  untilDateChangeHandler(e) {
-    this.setState({ untilDate: e.target.value })
-  }
-  commiterChangeHandler(e) {
-    this.setState({ commiter: e.target.value })
-  }
   render() {
-    console.log(this.props)
-    const { dispatch, owner } = this.props;
+    const { dispatch, owner, repo, sinceDate, untilDate, commiter } = this.props;
     return (
       <Grid className="screen">
         <Row>
@@ -78,28 +28,31 @@ class Screen extends React.Component {
         <Row>
           <Col xs={12}>
             <GitHubRepository
-              owner={owner}
+              owner={owner} repo={repo}
               ownerChangeHandler={(e) => dispatch(inputOwner(e.target.value)) }
-              repo={this.state.repo}
-              repoChangeHandler={this.repoChangeHandler.bind(this)}
+              repoChangeHandler={(e) => dispatch(inputRepo(e.target.value))}
               />
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
             <SearchFilter
-              sinceDate={this.state.sinceDate}
-              sinceDateChangeHandler={this.sinceDateChangeHandler.bind(this)}
-              untilDate={this.state.untilDate}
-              untilDateChangeHandler={this.untilDateChangeHandler.bind(this)}
-              commiter={this.state.commiter}
-              commiterChangeHandler={this.commiterChangeHandler.bind(this)}
+              sinceDate={sinceDate} untilDate={untilDate} commiter={commiter}
+              sinceDateChangeHandler={(e) =>
+                dispatch(inputSinceDate(e.target.value))
+              }
+              untilDateChangeHandler={(e) =>
+                dispatch(inputUntilDate(e.target.value))
+              }
+              commiterChangeHandler={(e) =>
+                dispatch(inputCommiter(e.target.value))
+              }
               />
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <Button id="send-mail" onClick={this.sendButtonClickHandler.bind(this)}>
+            <Button id="send-mail" onClick={(e)=>dispatch(sendButtonClicked())}>
               send GitRec report
             </Button>
           </Col>
