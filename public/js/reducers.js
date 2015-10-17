@@ -34,7 +34,6 @@ function mapToParam(state) {
 function inputs(state = initialInputs, action) {
   switch (action.type) {
     case SYNC_INPUT_CHANGE:
-      console.log('ok')
       let obj = {};
       obj[action.name] = action.value;
       return Object.assign({}, state, obj);
