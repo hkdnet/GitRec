@@ -45,7 +45,6 @@ function inputs(state = initialInputs, action) {
 function clicks(state = {}, action) {
   switch (action.type) {
     case SEND_BUTTON_CLICKED:
-      console.log(action)
       if(!action.state.owner || !action.state.repo) {
         toastr.error('please fill your repository information', 'ERROR');
         break;
