@@ -7,6 +7,8 @@ import { INPUT_OWNER,         inputOwner,
          INPUT_UNTIL_DATE,    inputUntilDate,
          INPUT_COMMITER,      inputCommiter,
          SEND_BUTTON_CLICKED, sendButtonClicked } from './actions.js';
+import { SYNC_INPUT_CHANGE } from './components/SyncInput.js'
+
 
 import toastr from 'toastr';
 import $ from 'jquery'
@@ -36,11 +38,11 @@ function mapToParam(state) {
 
 function inputs(state = initialInputs, action) {
   switch (action.type) {
-    case INPUT_OWNER:
-      return Object.assign({}, state, {
-        owner: action.text
-      });
-      break;
+    case SYNC_INPUT_CHANGE:
+      console.log('ok')
+      let obj = {};
+      obj[action.name] = action.value;
+      return Object.assign({}, state, obj);
     case INPUT_REPO:
       return Object.assign({}, state, {
         repo: action.text
