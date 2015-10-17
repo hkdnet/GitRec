@@ -37,13 +37,21 @@ function inputs(state = initialInputs, action) {
       let obj = {};
       obj[action.name] = action.value;
       return Object.assign({}, state, obj);
+    default:
+      return state
+  }
+}
+
+function clicks(state = {}, action) {
+  switch (action.type) {
     case SEND_BUTTON_CLICKED:
-      if(!state.owner || !state.repo) {
+      console.log(action)
+      if(!action.state.owner || !action.state.repo) {
         toastr.error('please fill your repository information', 'ERROR');
-        return state;
+        break;
       }
       toastr.info('sending...', 'INFO');
-      $.get('/mail', mapToParam(state), 'text').done(() =>{
+      $.get('/mail', mapToParam(action.state), 'text').done(() =>{
         toastr.clear();
         toastr.success('GitRec report was successfully sent', 'GitRec report');
       }).fail(() => {
@@ -51,12 +59,10 @@ function inputs(state = initialInputs, action) {
         toastr.clear();
         toastr.error('Sorry, something went wrong...', 'GitRec report');
       });
-      return state
-    default:
-      return state
   }
+  return state;
 }
 
-const gitRecApp = combineReducers({ inputs });
+const gitRecApp = combineReducers({ inputs, clicks });
 
 export default gitRecApp;

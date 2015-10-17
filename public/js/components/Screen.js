@@ -35,7 +35,8 @@ class Screen extends React.Component {
         </Row>
         <Row>
           <Col xs={12}>
-            <Button id="send-mail" onClick={(e)=>dispatch(sendButtonClicked())}>
+            <Button id="send-mail" onClick={(e) =>
+                dispatch(sendButtonClicked(this.props.inputs)) }>
               send GitRec report
             </Button>
           </Col>
